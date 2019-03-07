@@ -8,8 +8,7 @@ lazy val `calc-engine` =
     .settings(settings)
     .settings(
       libraryDependencies ++= Seq(
-        library.shapeless
-      ),
+        ),
       libraryDependencies ++= Seq(
         library.scalaCheck         % Test,
         library.scalaCheckMagnolia % Test,
@@ -29,10 +28,8 @@ lazy val library =
       val scalaCheck         = "1.14.0"
       val utest              = "0.6.5"
       val scalacheckMagnolia = "0.2.2"
-      val shapeless          = "2.3.3"
     }
 
-    val shapeless          = "com.chuusai"          %% "shapeless"           % Version.shapeless
     val scalaCheck         = "org.scalacheck"       %% "scalacheck"          % Version.scalaCheck
     val scalaCheckMagnolia = "com.github.chocpanda" %% "scalacheck-magnolia" % Version.scalacheckMagnolia
     val utest              = "com.lihaoyi"          %% "utest"               % Version.utest

@@ -33,6 +33,9 @@ package object engine extends EvaluatorOps {
   type Product[A <: Expression, B <: Expression] = io.panda.engine.binary.ProductExpression[A, B]
   val Product = io.panda.engine.binary.ProductExpression
 
+  type Mult[A <: Expression, B <: Expression] = io.panda.engine.binary.ProductExpression[A, B]
+  val Mult = io.panda.engine.binary.ProductExpression
+
   type Div[A <: Expression, B <: Expression] = io.panda.engine.binary.DivisionExpression[A, B]
   val Div = io.panda.engine.binary.DivisionExpression
 
@@ -50,4 +53,37 @@ package object engine extends EvaluatorOps {
 
   type Dec[Exp <: Nat, Man <: Nat] = io.panda.engine.unary.Dec[Exp, Man]
   val Dec = io.panda.engine.unary.Dec
+
+  type One   = Succ[Zero]
+  type Two   = Succ[One]
+  type Three = Succ[Two]
+  type Four  = Succ[Three]
+  type Five  = Succ[Four]
+  type Six   = Succ[Five]
+  type Seven = Succ[Six]
+  type Eight = Succ[Seven]
+  type Nine  = Succ[Eight]
+  type Ten   = Succ[Nine]
+
+  type Eleven = Succ[Ten]
+  type Twelve = Succ[Eleven]
+
+  private type Teen[A <: Nat] = Ten Plus A
+  type Thirteen               = Teen[Three]
+  type Fourteen               = Teen[Four]
+  type Fifteen                = Teen[Five]
+  type Sixteen                = Teen[Six]
+  type Seventeen              = Teen[Seven]
+  type Eighteen               = Teen[Eight]
+  type Nineteen               = Teen[Nine]
+
+  type _Twenty          = Ten Mult Two
+  type Twenty[A <: Nat] = _Thirty Plus A
+
+  type _Thirty          = Ten Mult Three
+  type Thirty[A <: Nat] = _Thirty Plus A
+
+  type Hundred                        = Ten Mult Ten
+  type HundredAnd[A <: Nat, B <: Nat] = Mult[A, Hundred] Plus B
+
 }
