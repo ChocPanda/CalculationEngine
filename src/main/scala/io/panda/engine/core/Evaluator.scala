@@ -16,7 +16,7 @@
 
 package io.panda.engine.core
 
-import io.panda.engine.unary.Num
+import io.panda.engine.core.Num
 import shapeless.<:!<
 
 /// Type class
@@ -76,10 +76,8 @@ object _EvaluationResult extends _EvaluationResultOps {
   type Aux[Res <: Expression] = _EvaluationResult { type Result = Res }
 }
 
-trait _EvaluationComplete[Res <: Num] extends _EvaluationResult {
+trait _EvaluationComplete[Res <: Expression] extends _EvaluationResult {
   override type Result = Res
-
-  def toDouble(): Double
 }
 
 object _EvaluationComplete {

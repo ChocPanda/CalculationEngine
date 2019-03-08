@@ -24,7 +24,7 @@ package object engine extends EvaluatorOps with _EvaluatorOps with _EvaluationRe
   type _EvaluationResult = io.panda.engine.core._EvaluationResult
   val _EvaluationResult = io.panda.engine.core._EvaluationResult
 
-  type _EvaluationComplete[Res <: Num] = io.panda.engine.core._EvaluationComplete[Res]
+  type _EvaluationComplete[Res <: Expression] = io.panda.engine.core._EvaluationComplete[Res]
   // val _EvaluationComplete = io.panda.engine.core._EvaluationComplete
 
   type _EvaluationIncomplete[Op <: Expression, Result <: Expression] =

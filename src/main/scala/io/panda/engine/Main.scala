@@ -17,6 +17,7 @@
 package io.panda.engine
 
 object Main extends App {
-  println(_Evaluator[One].evaluate().toDouble())
-  println(_Evaluator[Negate[One]](Negate.evaluator(_Evaluator[One])).evaluate().toDouble())
+  println(_Evaluator[Negate[Negate[Two]]].evaluate().toDouble())
+  // implicit val x = Negate.evaluator(_Evaluator[One])
+  // println(_Evaluator[Negate[One]].evaluate().toDouble())
 }
