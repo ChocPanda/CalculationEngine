@@ -19,4 +19,5 @@ package io.panda.engine
 object Main extends App {
   type MyNumber = One HundredAnd Seven
   println(Evaluator[MyNumber Plus Twelve].evaluate())
+  println(Evaluator[MyNumber Div Zero].evaluate())
 }
