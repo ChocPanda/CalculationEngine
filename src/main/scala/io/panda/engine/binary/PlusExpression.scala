@@ -18,7 +18,8 @@ package io.panda.engine.binary
 
 import io.panda.engine._
 
-final case class PlusExpression[LOp <: Expression, ROp <: Expression]() extends BinaryExpression[LOp, ROp]
+final case class PlusExpression[LOp <: Expression, ROp <: Expression]()
+    extends BinaryExpression[LOp, ROp]
 
 object PlusExpression {
   implicit def evaluator[LOp <: Expression, ROp <: Expression](

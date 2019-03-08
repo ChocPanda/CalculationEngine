@@ -19,7 +19,8 @@ package io.panda.engine.binary
 import io.panda.engine._
 import shapeless.=:!=
 
-final case class DivisionExpression[LOp <: Expression, ROp <: Expression]() extends BinaryExpression[LOp, ROp]
+final case class DivisionExpression[LOp <: Expression, ROp <: Expression]()
+    extends BinaryExpression[LOp, ROp]
 
 object DivisionExpression {
   implicit def evaluator[LOp <: Expression, ROp <: Expression](

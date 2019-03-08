@@ -17,12 +17,27 @@
 package io.panda.engine.unary
 
 import io.panda.engine._
+import shapeless.<:!<
 
-final case class NegateExpression[Op <: Expression](override val operand: Op) extends UnaryExpression[Op]
+final case class NegateExpression[Op <: Expression](override val operand: Op)
+    extends UnaryExpression[Op] {
+  type Operand = Op
+}
 
 object NegateExpression {
-  implicit def evaluator[Op <: Expression](opEvaluator: Evaluator[Op]): Evaluator[NegateExpression[Op]] =
-    new Evaluator[NegateExpression[Op]] {
-      override def evaluate() = -(opEvaluator.evaluate())
+  implicit def evaluator[Op <: Expression](
+    opEvaluator: _Evaluator.Aux[Op, _EvaluationComplete[Op]]
+    // ev: Op <:!< NegateExpression[_]
+  ): _Evaluator.Aux[NegateExpression[Op], _EvaluationComplete[NegateExpression[Op]]] =
+    new _Evaluator[NegateExpression[Op]] {
+      override type Result = _EvaluationComplete[NegateExpression[Op]]
+
+      override def evaluate() = new _EvaluationComplete[NegateExpression[Op]] {
+        override def toDouble() = -(opEvaluator.evaluate().toDouble())
+      }
     }
+
+  // implicit def d_Evaluator[Op <: Negate[Expression]](
+  //   opEvaluator: _Evaluator[Op]
+  // ): _Evaluator[Op] = opEvaluator
 }

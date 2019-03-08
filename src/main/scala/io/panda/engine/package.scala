@@ -16,13 +16,26 @@
 
 package io.panda
 
-import io.panda.engine.core.EvaluatorOps
+import io.panda.engine.core.{ _EvaluationResultOps, _EvaluatorOps, EvaluatorOps }
 
-package object engine extends EvaluatorOps {
+package object engine extends EvaluatorOps with _EvaluatorOps with _EvaluationResultOps {
+  type Expression = io.panda.engine.core.Expression
+
+  type _EvaluationResult = io.panda.engine.core._EvaluationResult
+  val _EvaluationResult = io.panda.engine.core._EvaluationResult
+
+  type _EvaluationComplete[Res <: Num] = io.panda.engine.core._EvaluationComplete[Res]
+  // val _EvaluationComplete = io.panda.engine.core._EvaluationComplete
+
+  type _EvaluationIncomplete[Op <: Expression, Result <: Expression] =
+    io.panda.engine.core._EvaluationIncomplete[Op, Result]
+  // val _EvaluationIncomplete = io.panda.engine.core._EvaluationIncomplete
+
+  type _Evaluator[Op <: Expression] = io.panda.engine.core._Evaluator[Op]
+  val _Evaluator = io.panda.engine.core._Evaluator
+
   type Evaluator[Op <: Expression] = io.panda.engine.core.Evaluator[Op]
   val Evaluator = io.panda.engine.core.Evaluator
-
-  type Expression = io.panda.engine.core.Expression
 
   type Plus[A <: Expression, B <: Expression] = io.panda.engine.binary.PlusExpression[A, B]
   val Plus = io.panda.engine.binary.PlusExpression
@@ -42,17 +55,14 @@ package object engine extends EvaluatorOps {
   type Negate[A <: Expression] = io.panda.engine.unary.NegateExpression[A]
   val Negate = io.panda.engine.unary.NegateExpression
 
-  type Nat = io.panda.engine.unary.Nat
-  val Nat = io.panda.engine.unary.Nat
+  type Num = io.panda.engine.unary.Num
+  val Num = io.panda.engine.unary.Num
 
   type Zero = io.panda.engine.unary.Zero.type
   val Zero = io.panda.engine.unary.Zero
 
-  type Succ[Prev <: Nat] = io.panda.engine.unary.Succ[Prev]
+  type Succ[Prev <: Num] = io.panda.engine.unary.Succ[Prev]
   val Succ = io.panda.engine.unary.Succ
-
-  type Dec[Exp <: Nat, Man <: Nat] = io.panda.engine.unary.Dec[Exp, Man]
-  val Dec = io.panda.engine.unary.Dec
 
   type One   = Succ[Zero]
   type Two   = Succ[One]
@@ -65,10 +75,9 @@ package object engine extends EvaluatorOps {
   type Nine  = Succ[Eight]
   type Ten   = Succ[Nine]
 
-  type Eleven = Succ[Ten]
-  type Twelve = Succ[Eleven]
-
-  private type Teen[A <: Nat] = Ten Plus A
+  private type Teen[A <: Num] = Ten Plus A
+  type Eleven                 = Teen[One]
+  type Twelve                 = Teen[Two]
   type Thirteen               = Teen[Three]
   type Fourteen               = Teen[Four]
   type Fifteen                = Teen[Five]
@@ -78,12 +87,12 @@ package object engine extends EvaluatorOps {
   type Nineteen               = Teen[Nine]
 
   type _Twenty          = Ten Mult Two
-  type Twenty[A <: Nat] = _Thirty Plus A
+  type Twenty[A <: Num] = _Thirty Plus A
 
   type _Thirty          = Ten Mult Three
-  type Thirty[A <: Nat] = _Thirty Plus A
+  type Thirty[A <: Num] = _Thirty Plus A
 
   type Hundred                        = Ten Mult Ten
-  type HundredAnd[A <: Nat, B <: Nat] = Mult[A, Hundred] Plus B
+  type HundredAnd[A <: Num, B <: Num] = Mult[A, Hundred] Plus B
 
 }

@@ -18,7 +18,8 @@ package io.panda.engine.binary
 
 import io.panda.engine._
 
-final case class ProductExpression[LOp <: Expression, ROp <: Expression]() extends BinaryExpression[LOp, ROp]
+final case class ProductExpression[LOp <: Expression, ROp <: Expression]()
+    extends BinaryExpression[LOp, ROp]
 
 object ProductExpression {
   implicit def evaluator[LOp <: Expression, ROp <: Expression](
