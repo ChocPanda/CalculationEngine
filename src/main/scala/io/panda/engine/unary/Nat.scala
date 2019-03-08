@@ -37,13 +37,3 @@ object Succ {
       override def evaluate() = evaluator.evaluate() + 1.0
     }
 }
-
-trait Dec[Exp <: Nat, Man <: Nat] extends Nat
-
-object Dec {
-  implicit def evaluator[Exp <: Nat, Man <: Nat](implicit expEvaluator: Evaluator[Exp],
-                                                 manEvaluator: Evaluator[Man]): Evaluator[Dec[Exp, Man]] =
-    new Evaluator[Dec[Exp, Man]] {
-      override def evaluate() = (expEvaluator.evaluate() * 10) + (manEvaluator.evaluate())
-    }
-}
